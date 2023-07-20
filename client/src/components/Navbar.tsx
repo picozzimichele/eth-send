@@ -29,8 +29,8 @@ export default function Navbar() {
                 )}
                 {toggleMenu && (
                     <ul className="blue-glassmorphism z-10 flex flex-col justify-start items-end rounded-md fixed top-0 right-0 p-3 w-[70%] h-screen shadow-2xl md:hidden list-none text-white animate-slide-in">
-                        <li className="text-xl w-full my-2 hover:cursor-pointer hover:text-gray-300">
-                            <AiOutlineClose onClick={() => setToggleMenu(false)} />
+                        <li className="text-xl w-full my-2">
+                            <AiOutlineClose className="hover:cursor-pointer hover:text-gray-300" onClick={() => setToggleMenu(false)} />
                         </li>
                         {["Market", "Exchange", "Tutorials", "Wallets"].map((title, index) => (
                             <NabarItem key={title + index} title={title} classProps="text-white my-2 text-lg" />
