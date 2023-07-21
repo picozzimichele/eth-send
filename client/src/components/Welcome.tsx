@@ -76,10 +76,11 @@ export default function Welcome() {
                     </div>
                     {/* Form */}
                     <div className="blue-glassmorphism p-5 sm:w-96 w-full flex flex-col justify-start items-center">
-                        <Input placeholder="Address To" value={""} name="AddressTo" type="text" handleChange={() => {}} />
-                        <Input placeholder="Address To" value={""} name="AddressTo" type="text" handleChange={() => {}} />
-                        <Input placeholder="Address To" value={""} name="AddressTo" type="text" handleChange={() => {}} />
-                        <Input placeholder="Address To" value={""} name="AddressTo" type="text" handleChange={() => {}} />
+                        <Input placeholder="Address To" value={""} name="addressTo" type="text" handleChange={() => {}} />
+                        <Input placeholder="Amount (ETH)" value={""} name="amount" type="number" handleChange={() => {}} />
+                        <Input placeholder="Keyword (GIF)" value={""} name="keyword" type="text" handleChange={() => {}} />
+                        <Input placeholder="Enter Message" value={""} name="message" type="text" handleChange={() => {}} />
+                        <div className="h-[1px] w-full bg-gray-400 my-2" />
                     </div>
                 </div>
             </div>
