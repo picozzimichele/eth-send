@@ -7,6 +7,30 @@ import Loader from "./Loader";
 
 const commonStyles = "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white";
 
+const Input = ({
+    placeholder,
+    name,
+    type,
+    value,
+    handleChange,
+}: {
+    placeholder: string;
+    value: any;
+    type: string;
+    name: string;
+    handleChange: (e: any, name: any) => void;
+}) => (
+    <input
+        className="my-2 w-full rounded-sm p-2 outline-none bg-transparent text-white border-none text-sm white-glassmorphism"
+        placeholder={placeholder}
+        value={value}
+        name={name}
+        type={type}
+        step={"0.0001"}
+        onChange={(e) => handleChange(e, name)}
+    />
+);
+
 export default function Welcome() {
     const connectWallet = async () => {};
     return (
@@ -36,7 +60,27 @@ export default function Welcome() {
                     </div>
                 </div>
                 <div className="flex flex-1 flex-col justify-start items-center w-full md:mt-0 mt-10">
-                    <div className="eth-card white-glassmorpism p-3 justify-end items-start flex-col rounded-xl h-40 w-full sm:w-72 my-5"></div>
+                    <div className="eth-card white-glassmorpism p-3 justify-end items-start flex-col rounded-xl h-40 w-full sm:w-72 my-5">
+                        <div className="flex justify-between flex-col w-full h-full">
+                            <div className="flex justify-between items-start">
+                                <div className="flex w-10 h-10 rounded-full border-2 border-white justify-center items-center">
+                                    <SiEthereum fontSize={20} className="text-white" />
+                                </div>
+                                <BsInfoCircle fontSize={17} className="text-white" />
+                            </div>
+                            <div>
+                                <p className="text-white font-light text-sm">Wallet Address</p>
+                                <p className="text-white font-semibold text-lg mt-1">Ethereum</p>
+                            </div>
+                        </div>
+                    </div>
+                    {/* Form */}
+                    <div className="blue-glassmorphism p-5 sm:w-96 w-full flex flex-col justify-start items-center">
+                        <Input placeholder="Address To" value={""} name="AddressTo" type="text" handleChange={() => {}} />
+                        <Input placeholder="Address To" value={""} name="AddressTo" type="text" handleChange={() => {}} />
+                        <Input placeholder="Address To" value={""} name="AddressTo" type="text" handleChange={() => {}} />
+                        <Input placeholder="Address To" value={""} name="AddressTo" type="text" handleChange={() => {}} />
+                    </div>
                 </div>
             </div>
         </div>
