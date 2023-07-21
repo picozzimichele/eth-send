@@ -36,8 +36,8 @@ export default function Welcome() {
     const handleSubmit = async () => {};
     return (
         <div className="flex w-full justify-center items-center">
-            <div className="flex md:flex-row flex-col items-start justify-between md:p-20 py-12 px-4">
-                <div className="flex flex-1 justify-start flex-col md:mr-10">
+            <div className="flex mf:flex-row flex-col items-start justify-between md:p-20 py-12 px-4">
+                <div className="flex flex-1 justify-start flex-col mf:mr-10">
                     <h1 className="text-gradient text-3xl sm:text-5xl text-white py-1">
                         Send Crypto <br /> across the world
                     </h1>
@@ -60,7 +60,7 @@ export default function Welcome() {
                         <div className={`rounded-br-2xl ${commonStyles}`}>Blockchain</div>
                     </div>
                 </div>
-                <div className="flex flex-1 flex-col justify-start items-center w-full md:mt-0 mt-10">
+                <div className="flex flex-1 flex-col justify-start items-center w-full mf:mt-0 mt-10">
                     <div className="eth-card white-glassmorpism p-3 justify-end items-start flex-col rounded-xl h-40 w-full sm:w-72 my-5">
                         <div className="flex justify-between flex-col w-full h-full">
                             <div className="flex justify-between items-start">
@@ -82,7 +82,7 @@ export default function Welcome() {
                         <Input placeholder="Keyword (GIF)" value={""} name="keyword" type="text" handleChange={() => {}} />
                         <Input placeholder="Enter Message" value={""} name="message" type="text" handleChange={() => {}} />
                         <div className="h-[1px] w-full bg-gray-400 my-2" />
-                        {true ? (
+                        {false ? (
                             <Loader />
                         ) : (
                             <button
