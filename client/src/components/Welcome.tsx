@@ -33,6 +33,7 @@ const Input = ({
 
 export default function Welcome() {
     const connectWallet = async () => {};
+    const handleSubmit = async () => {};
     return (
         <div className="flex w-full justify-center items-center">
             <div className="flex md:flex-row flex-col items-start justify-between md:p-20 py-12 px-4">
@@ -81,6 +82,17 @@ export default function Welcome() {
                         <Input placeholder="Keyword (GIF)" value={""} name="keyword" type="text" handleChange={() => {}} />
                         <Input placeholder="Enter Message" value={""} name="message" type="text" handleChange={() => {}} />
                         <div className="h-[1px] w-full bg-gray-400 my-2" />
+                        {true ? (
+                            <Loader />
+                        ) : (
+                            <button
+                                className="text-white w-full mt-2 p-2 border-[1px] border-[#3d4f7c] rounded-full cursor-pointer"
+                                type="button"
+                                onClick={handleSubmit}
+                            >
+                                Send Now
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>
