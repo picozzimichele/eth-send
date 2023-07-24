@@ -1,7 +1,8 @@
-import React from "react";
+import { useContext } from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
+import { TransactionContext } from "../context/TransactionContext";
 
 import Loader from "./Loader";
 
@@ -15,7 +16,7 @@ const Input = ({
     handleChange,
 }: {
     placeholder: string;
-    value: any;
+    value?: any;
     type: string;
     name: string;
     handleChange: (e: any, name: any) => void;
@@ -32,8 +33,14 @@ const Input = ({
 );
 
 export default function Welcome() {
-    const connectWallet = async () => {};
-    const handleSubmit = async () => {};
+    const { connectWallet, currentAccount, formData, handleChange, sendTransaction } = useContext(TransactionContext);
+
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+        const { addressTo, amount, keyword, message } = formData;
+        if (!addressTo || !amount || !keyword || !message) return alert("Please fill all fields");
+        sendTransaction();
+    };
     return (
         <div className="flex w-full justify-center items-center">
             <div className="flex mf:flex-row flex-col items-start justify-between md:p-20 py-12 px-4">
@@ -44,13 +51,16 @@ export default function Welcome() {
                     <p className="text-left mt-5 text-white font-light w-11/2 md:w-9/12 text-base">
                         Explore the crypto world. Buy and sell cryptocurrencies easily on Krypto
                     </p>
-                    <button
-                        className="flex flex-row justify-center items-center my-5 bg-[#2952e3] hover:bg-[#2546bd] p-3 rounded-full cursor-pointer"
-                        type="button"
-                        onClick={connectWallet}
-                    >
-                        <p className="text-white text-base font-bold">Connect Wallet</p>
-                    </button>
+                    {!currentAccount && (
+                        <button
+                            className="flex flex-row justify-center items-center my-5 bg-[#2952e3] hover:bg-[#2546bd] p-3 rounded-full cursor-pointer"
+                            type="button"
+                            onClick={connectWallet}
+                        >
+                            <p className="text-white text-base font-bold">Connect Wallet</p>
+                        </button>
+                    )}
+
                     <div className="grid grid-cols-2 sm:grid-cols-3 w-full mt-10">
                         <div className={`rounded-tl-2xl ${commonStyles}`}>Reliability</div>
                         <div className={`rounded-tr-2xl sm:rounded-none ${commonStyles}`}>Security</div>
@@ -76,24 +86,20 @@ export default function Welcome() {
                         </div>
                     </div>
                     {/* Form */}
-                    <div className="blue-glassmorphism p-5 sm:w-96 w-full flex flex-col justify-start items-center">
-                        <Input placeholder="Address To" value={""} name="addressTo" type="text" handleChange={() => {}} />
-                        <Input placeholder="Amount (ETH)" value={""} name="amount" type="number" handleChange={() => {}} />
-                        <Input placeholder="Keyword (GIF)" value={""} name="keyword" type="text" handleChange={() => {}} />
-                        <Input placeholder="Enter Message" value={""} name="message" type="text" handleChange={() => {}} />
+                    <form onSubmit={handleSubmit} className="blue-glassmorphism p-5 sm:w-96 w-full flex flex-col justify-start items-center">
+                        <Input placeholder="Address To" name="addressTo" type="text" handleChange={handleChange} />
+                        <Input placeholder="Amount (ETH)" name="amount" type="number" handleChange={handleChange} />
+                        <Input placeholder="Keyword (GIF)" name="keyword" type="text" handleChange={handleChange} />
+                        <Input placeholder="Enter Message" name="message" type="text" handleChange={handleChange} />
                         <div className="h-[1px] w-full bg-gray-400 my-2" />
                         {false ? (
                             <Loader />
                         ) : (
-                            <button
-                                className="text-white w-full mt-2 p-2 border-[1px] border-[#3d4f7c] rounded-full cursor-pointer"
-                                type="button"
-                                onClick={handleSubmit}
-                            >
+                            <button className="text-white w-full mt-2 p-2 border-[1px] border-[#3d4f7c] rounded-full cursor-pointer" type="submit">
                                 Send Now
                             </button>
                         )}
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
