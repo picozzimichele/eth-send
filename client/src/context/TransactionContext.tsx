@@ -8,14 +8,6 @@ const { ethereum } = window as any;
 
 //0x50A08995a5Eec9A49632a09E41BCeaECbf151f18
 
-const getEthereumContract = async () => {
-    const provider = new ethers.BrowserProvider(ethereum);
-    const signer = await provider.getSigner();
-    const transactionContract = new ethers.Contract(contractAddress, contractABI, signer);
-
-    return transactionContract;
-};
-
 export const TransactionProvider = ({ children }: { children: any }) => {
     const [currentAccount, setCurrentAccount] = useState(null);
     const [formData, setFormData] = useState({ addressTo: "", amount: "", keyword: "", message: "" });
@@ -63,28 +55,29 @@ export const TransactionProvider = ({ children }: { children: any }) => {
         try {
             if (!ethereum) return alert("Please install MetaMask");
             const { addressTo, amount, keyword, message } = formData;
-            const transactionContract = await getEthereumContract();
+            const provider = new ethers.BrowserProvider(ethereum);
+            const signer = await provider.getSigner();
+            const transactionContract = new ethers.Contract(contractAddress, contractABI, signer);
+
             //parsed amount is not in the correct format
             const parsedAmout = ethers.parseEther(amount);
 
             console.log(parsedAmout, "parsedAmout");
 
-            await ethereum.request({
-                method: "eth_sendTransaction",
-                params: [
-                    {
-                        from: currentAccount,
-                        to: addressTo,
-                        gas: "0x5028", //21000 gwei
-                        value: parsedAmout,
-                    },
-                ],
+            //checks if the addressTo is valid
+            ethers.getAddress(addressTo);
+
+            //sends money from address A to addressTo
+            await signer.sendTransaction({
+                to: addressTo,
+                value: parsedAmout,
             });
 
+            // adds the transaction to the blockchain
             const transactionHash = await transactionContract.addToBlockchain(addressTo, parsedAmout, message, keyword);
             setIsLoading(true);
             console.log(`Loading - ${transactionHash.hash}`);
-            const transactionReceipt = await transactionHash.wait();
+            await transactionHash.wait();
             setIsLoading(false);
             console.log(`Success - ${transactionHash.hash}`);
 
