@@ -6,6 +6,8 @@ export const TransactionContext = createContext<any>({});
 
 const { ethereum } = window as any;
 
+//0x50A08995a5Eec9A49632a09E41BCeaECbf151f18
+
 const getEthereumContract = async () => {
     const provider = new ethers.BrowserProvider(ethereum);
     const signer = await provider.getSigner();
@@ -18,6 +20,7 @@ export const TransactionProvider = ({ children }: { children: any }) => {
     const [currentAccount, setCurrentAccount] = useState(null);
     const [formData, setFormData] = useState({ addressTo: "", amount: "", keyword: "", message: "" });
     const [isLoading, setIsLoading] = useState(false);
+    const [transactionCount, setTransactionCount] = useState(localStorage.getItem("transactionCount"));
 
     //good practice when interacting with forms
     const handleChange = (e: any, name: string) => {
@@ -60,9 +63,11 @@ export const TransactionProvider = ({ children }: { children: any }) => {
         try {
             if (!ethereum) return alert("Please install MetaMask");
             const { addressTo, amount, keyword, message } = formData;
-            const parsedAmout = ethers.parseEther(amount);
-            const parsedAmountGwei = ethers.formatUnits(parsedAmout, "gwei");
             const transactionContract = await getEthereumContract();
+            //parsed amount is not in the correct format
+            const parsedAmout = ethers.parseEther(amount);
+
+            console.log(parsedAmout, "parsedAmout");
 
             await ethereum.request({
                 method: "eth_sendTransaction",
@@ -70,13 +75,13 @@ export const TransactionProvider = ({ children }: { children: any }) => {
                     {
                         from: currentAccount,
                         to: addressTo,
-                        gas: "0x5208", //21000 gwei
-                        value: parsedAmountGwei,
+                        gas: "0x5028", //21000 gwei
+                        value: parsedAmout,
                     },
                 ],
             });
 
-            const transactionHash = await transactionContract.addToBlockchain(addressTo, parsedAmountGwei, message, keyword);
+            const transactionHash = await transactionContract.addToBlockchain(addressTo, parsedAmout, message, keyword);
             setIsLoading(true);
             console.log(`Loading - ${transactionHash.hash}`);
             const transactionReceipt = await transactionHash.wait();
@@ -84,6 +89,7 @@ export const TransactionProvider = ({ children }: { children: any }) => {
             console.log(`Success - ${transactionHash.hash}`);
 
             const transactionCount = await transactionContract.getTransactionCount();
+            setTransactionCount(transactionCount.toNumber());
 
             //get data from form
         } catch (error) {
