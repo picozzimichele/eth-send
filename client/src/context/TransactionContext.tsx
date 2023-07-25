@@ -30,6 +30,17 @@ export const TransactionProvider = ({ children }: { children: any }) => {
             const availableTransactions = await transactionContract.getAllTransactions();
 
             console.log(availableTransactions);
+            const structuredTransactions = availableTransactions.map((transaction: any) => ({
+                addressTo: transaction.receiver,
+                addressFrom: transaction.sender,
+                timestamp: new Date(Number(transaction.timestamp) * 1000).toLocaleString(),
+                message: transaction.message,
+                keyword: transaction.keyword,
+                amount: ethers.formatEther(transaction.amount),
+            }));
+
+            console.log(structuredTransactions);
+            setTransactions(structuredTransactions);
         } catch (error) {
             console.log(error);
         }
