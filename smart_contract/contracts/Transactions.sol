@@ -1,8 +1,10 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import "hardhat/console.sol";
+
 contract Transactions {
-    uint256 public transactionCount = 0;
+    uint256 public transactionCount;
 
     event Transfer(address from, address receiver, uint256 amount, string message, uint256 timestamp, string keyword);
 
