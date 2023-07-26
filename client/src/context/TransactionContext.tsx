@@ -124,7 +124,8 @@ export const TransactionProvider = ({ children }: { children: any }) => {
             console.log(`Success - ${transactionHash.hash}`);
 
             const transactionCount = await transactionContract.getTransactionCount();
-            setTransactionCount(transactionCount.toNumber());
+            setTransactionCount(transactionCount);
+            (window as any).reload();
 
             //get data from form
         } catch (error) {
@@ -141,6 +142,8 @@ export const TransactionProvider = ({ children }: { children: any }) => {
         formData,
         setFormData,
         sendTransaction,
+        transactions,
+        isLoading,
     };
 
     useEffect(() => {

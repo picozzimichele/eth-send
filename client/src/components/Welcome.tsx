@@ -34,7 +34,7 @@ const Input = ({
 );
 
 export default function Welcome() {
-    const { connectWallet, currentAccount, formData, handleChange, sendTransaction } = useContext(TransactionContext);
+    const { connectWallet, currentAccount, formData, handleChange, sendTransaction, isLoading } = useContext(TransactionContext);
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
@@ -93,7 +93,7 @@ export default function Welcome() {
                         <Input placeholder="Keyword (GIF)" name="keyword" type="text" handleChange={handleChange} />
                         <Input placeholder="Enter Message" name="message" type="text" handleChange={handleChange} />
                         <div className="h-[1px] w-full bg-gray-400 my-2" />
-                        {false ? (
+                        {isLoading ? (
                             <Loader />
                         ) : (
                             <button className="text-white w-full mt-2 p-2 border-[1px] border-[#3d4f7c] rounded-full cursor-pointer" type="submit">
