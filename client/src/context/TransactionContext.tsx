@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext, ReactNode } from "react";
+import { useState, useEffect, createContext } from "react";
 import { ethers } from "ethers";
 import { contractABI, contractAddress } from "../utils/constants";
 
