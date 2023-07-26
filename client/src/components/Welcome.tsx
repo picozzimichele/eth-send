@@ -47,14 +47,14 @@ export default function Welcome() {
             <div className="flex mf:flex-row flex-col items-start justify-between md:p-20 py-12 px-4">
                 <div className="flex flex-1 justify-start flex-col mf:mr-10">
                     <h1 className="text-gradient text-3xl sm:text-5xl text-white py-1">
-                        Send Crypto <br /> across the world
+                        Send ETH <br /> with a beautiful GIF
                     </h1>
                     <p className="text-left mt-5 text-white font-light w-11/2 md:w-9/12 text-base">
-                        Explore the crypto world. Buy and sell cryptocurrencies easily on Krypto
+                        Connect <b>metamask</b> and use the <b>Sepolia</b> network. This is a test contract to store stransaction and gifs on the blockchain.
                     </p>
                     {!currentAccount && (
                         <button
-                            className="flex flex-row justify-center items-center my-5 bg-[#2952e3] hover:bg-[#2546bd] p-3 rounded-full cursor-pointer"
+                            className="flex flex-row justify-center items-center my-5 bg-[#1D5D9B] hover:bg-[#387096] p-3 rounded-md cursor-pointer"
                             type="button"
                             onClick={connectWallet}
                         >
@@ -72,7 +72,7 @@ export default function Welcome() {
                     </div>
                 </div>
                 <div className="flex flex-1 flex-col justify-start items-center w-full mf:mt-0 mt-10">
-                    <div className="eth-card white-glassmorpism p-3 justify-end items-start flex-col rounded-xl h-40 w-full sm:w-72 my-5">
+                    <div className="eth-card white-glassmorpism p-3 justify-end items-start flex-col rounded-xl w-full aspect-video sm:max-w-sm my-5">
                         <div className="flex justify-between flex-col w-full h-full">
                             <div className="flex justify-between items-start">
                                 <div className="flex w-10 h-10 rounded-full border-2 border-white justify-center items-center">
